@@ -59,21 +59,21 @@ pub static LAYERS: keyberon::layout::Layers<7, 10, 5, ()> = keyberon::layout::la
         [ n     J     Y     Z     U     A     Q],
         [(1)    n     C     S     I     E     O],
         [LGui   V     X LBracket Quote  ;     n],
-        [ t     t     t    (2) LShift {CTRL_TAB} n],
+        [ t     t     t     t    (2) LShift {CTRL_TAB}],
 
         // right half
         [ 6     7     8     9     0     n    n],
         [ P     B     M     L     F     -    n],
         [ D     T     N     R     H     n   (1)],
         [ n     W     G     ,     .     K   LGui],
-        [ n {ALT_ENT} {SHIFT_SP} (2) t  t  t],
+        [ {ALT_ENT} {SHIFT_SP} (2) t t  t    t],
     }{
         // left half
         [ t   t           t             t                t            t            t],
         [ t   t         {a!(E)}     {s!(Slash)}       {a!(Kb8)}     {a!(Kb9)}      Grave],
         [ t   n       {a!(Minus)}    {s!(Kb7)}        {a!(Kb7)}     {a!(Kb0)}  {s!(RBracket)}],
         [ t NonUsHash   {s!(Kb4)} {a!(NonUsBslash)} {a!(RBracket)} {s!(Equal)}      t],
-        [ t   t           t             (3)               t            t            t],
+        [ t   t           t             t               (3)           t             t],
 
         // right half
         [ t              t            t               t            t            t        t],
@@ -115,7 +115,7 @@ pub static LAYERS: keyberon::layout::Layers<7, 10, 5, ()> = keyberon::layout::la
         [ Tab    n    Q   W   E   R   T],
         [ LCtrl  n    A   S   D   F   G],
         [ LShift Z    X   C   V   B   n],
-        [ n      n  n LGui LCtrl LAlt n],
+        [ n      n    n   n LGui LCtrl LAlt],
 
         // right half
         [ t   t   t   t   t    t      t],
