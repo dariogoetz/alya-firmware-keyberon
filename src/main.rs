@@ -71,11 +71,12 @@ mod app {
         matrix: Matrix<EPin<Input<PullUp>>, EPin<Output<PushPull>>, 7, 10>,
         debouncer: Debouncer<[[bool; 7]; 10]>,
         timer: hal::timer::counter::CounterHz<hal::pac::TIM2>,
+        delay: cortex_m::delay::Delay,
     }
 
     #[init]
     fn init(cx: init::Context) -> (Shared, Local, init::Monotonics) {
-        defmt::info!("init");
+        // defmt::info!("init");
         // prepare static datastructures for USB
         static mut USB_BUS: Option<UsbBusAllocator<UsbBusType>> = None;
 
@@ -157,6 +158,8 @@ mod app {
 
         let matrix = cortex_m::interrupt::free(move |_cs| Matrix::new(cols, rows));
 
+        let delay = cortex_m::delay::Delay::new(cx.core.SYST, clocks.sysclk().to_Hz());
+
         (
             Shared {
                 // Initialization of shared resources go here
@@ -169,6 +172,7 @@ mod app {
                 matrix: matrix.unwrap(),
                 timer,
                 debouncer: Debouncer::new([[false; 7]; 10], [[false; 7]; 10], 5),
+                delay,
             },
             init::Monotonics(),
         )
@@ -184,15 +188,22 @@ mod app {
 
     /// Check all switches for their state, register corresponding events, and
     /// spawn generation of a USB keyboard report (including layout event processing)
-    #[task(binds=TIM2, priority=1, local=[debouncer, matrix, timer], shared=[usb_dev, usb_class, layout])]
+    #[task(binds=TIM2, priority=1, local=[debouncer, matrix, timer, delay], shared=[usb_dev, usb_class, layout])]
     fn tick(mut cx: tick::Context) {
         // defmt::info!("Processing keyboard events");
         cx.local.timer.wait().ok();
         // or equivalently
         // cx.local.timer.clear_interrupt(hal::timer::Event::Update);
 
+        let delay = cx.local.delay;
+
         // scan keyboard
-        for event in cx.local.debouncer.events(cx.local.matrix.get().unwrap()) {
+        for event in cx.local.debouncer.events(
+            cx.local
+                .matrix
+                .get_with_delay(|| delay.delay_us(10))
+                .unwrap(),
+        ) {
             cx.shared.layout.event(event);
             // match event {
             //     Event::Press(i, j) => defmt::info!("Pressed {} {}", i, j),
