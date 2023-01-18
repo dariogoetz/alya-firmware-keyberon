@@ -8,7 +8,7 @@ Install the rust toolchain
 
 ```shell
 curl https://sh.rustup.rs -sSf | sh
-rustup target add thumbv7em-none-eabihf
+rustup target add thumbv7m-none-eabi
 rustup component add llvm-tools-preview
 cargo install cargo-binutils
 cargo install flip-link
