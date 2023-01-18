@@ -182,7 +182,7 @@ mod app {
     #[idle]
     fn idle(_: idle::Context) -> ! {
         loop {
-            continue;
+            cortex_m::asm::wfi();
         }
     }
 
