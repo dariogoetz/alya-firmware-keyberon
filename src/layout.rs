@@ -92,8 +92,8 @@ pub static LAYERS: keyberon::layout::Layers<7, 10, 5, ()> = keyberon::layout::la
         // right half
         [ t   t   t   t   t        t              t],
         [ n   Kb7 Kb8 Kb9 RBracket Slash          t],
-        [ n   Kb4 Kb5 Kb6 Comma    n         {s!(RBracket)}],
-        [ n   Kb0 Kb1 Kb2 Kb3      Dot        {s!(Kb7)}],
+        [ n   Kb4 Kb5 Kb6 Dot      n         {s!(RBracket)}],
+        [ n   Kb0 Kb1 Kb2 Kb3      Comma      {s!(Kb7)}],
         [ t   t   t   t   t        t              t],
     }{
         // left half
