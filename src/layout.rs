@@ -86,7 +86,7 @@ pub static LAYERS: keyberon::layout::Layers<7, 10, 5, ()> = keyberon::layout::la
         [ t  t  t      t      t    t      t],
         [ t  t  PgUp   BSpace Up   Delete PgDown],
         [(3) n  Home   Left   Down Right  End],
-        [ t  t  Escape Tab    n    Enter  n],
+        [ t  Escape Tab    n    Enter  n  n ],
         [ t  t  t      t      t    t      t],
 
         // right half
